@@ -22,12 +22,25 @@ contract MyNFT is ERC721, Ownable {
 
         return newItemId;
     }
+    
+
+    function getNFTs() public view returns (uint256[] memory) {
+    uint256 totalSupply = _tokenIds.current();
+    uint256[] memory nftIds = new uint256[](totalSupply);
+
+    for (uint256 i = 0; i < totalSupply; i++) {
+        nftIds[i] = tokenByIndex(i);
+    }
+
+    return nftIds;
+}
+
 
     function setPrice(uint256 tokenId, uint256 price) public {
         require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: caller is not owner nor approved");
         tokenPrice[tokenId] = price;
     }
-
+ 
     function buyToken(uint256 tokenId) public payable {
         require(msg.value >= tokenPrice[tokenId], "Not enough Ether to purchase the token.");
         require(ownerOf(tokenId) != msg.sender, "You are the owner of this token.");

@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
-const { create, getNFTs, buyNFT } = require('./nftContract');
+const { mint, getNFTs, buyToken } = require('./contracts/nftPurchases&Sales.sol');
 const mongoose = require('mongoose');
 const cluster = require('express-cluster');
 
